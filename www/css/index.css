@@ -13,3 +13,22 @@ p {
     text-align: center;
     color: #333;  */
 }
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.full-bg {
+    min-height: 100vh; /* Ensures it fills the viewport */
+    min-width: 100vh;
+    display: flex; /* Centers content */
+    justify-content: center;
+    align-items: center;
+    background: #DDC086;
+}
+
+#buttons1 {
+    font-family: 'Bangers', cursive;
+}
