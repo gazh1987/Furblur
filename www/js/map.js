@@ -6,10 +6,9 @@ var map = L.map('map',{
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
 }).addTo(map);
-map.locate({setView: true, maxZoom: 16});
+map.locate({setView: true, watch: true, maxZoom: 16});
 
 function onLocationFound(e) {
-    var radius = e.accuracy;
     L.marker(e.latlng).addTo(map);
 }
 map.on('locationfound', onLocationFound);
