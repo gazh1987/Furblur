@@ -1,23 +1,8 @@
 /* Ensure the body and html elements take up full height */
 html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Full height */
-}
-
-/* add a border to the meadow logo image */
-#meadow {
-  border: 5px solid #007bff;
-  border-radius: 10%;
-}
-
-.full-bg {
-  min-height: 100vh; /* Ensures it fills the viewport */
-  min-width: 100vw;
-  display: flex; /* Centers content */
-  justify-content: center;
-  align-items: center;
-  background: white;
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Full height */
 }
 
 .sour-gummy-font {
@@ -30,60 +15,53 @@ html, body {
 
 /* Create a flex container for the whole page */
 .wholePageContainer {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    height: 100%; 
-    width: 90%;
-  }
-  
-  /* Map styling */
-  #content, #map {
-    flex-grow: 1; /* This will make the map take up all available space above the footer */
-    top: 1%;
-    width: 100%; /* Full width */
-    border: 2px solid #007bff;
-    border-radius: 2%;
-  }
-  
-  #page-header {
-    background: white;
-  }
-  
-  footer {
-    height: 70px; 
-    background: white;
-    border-top: #007bff;
-  }
-  
-  .col{
-    text-align: center;
-    padding-top: 5%;
-  }
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  width: 90%;
+}
 
-  #currentScreenIcon {
-    color: #007bff;
-  }
+#content, #map {
+  flex-grow: 1; /* This will make the content or map take up all available space above the footer */
+  top: 1%;
+  width: 100%; /* Full width */
+  border: 2px solid #007bff;
+  border-radius: 2%;
+}
 
-  #walking {
-    height: 80px; 
-    background: white;
-    text-align: center;
-    padding: 5%;
-  }
+.page-header {
+  background: white;
+}
 
-  #walkingButton {
-    color: red;
-    padding: 1%;
-    font-size: 50px;
-  }
+footer {
+  background: white;
+  min-height: 50px;
+  padding: 12px;
+}
 
-  hr.style1 {
-    border-top: 1px solid #007bff;
-  }
+.col{
+  text-align: center;
+  padding-top: 5%;
+}
 
-  
-  
-  
-  
-  
+#currentScreenIcon {
+  color: #007bff;
+}
+
+#walking {
+  height: 80px; 
+  background: white;
+  text-align: center;
+  padding: 5%;
+}
+
+#walkingButton {
+  color: red;
+  padding: 1%;
+  font-size: 50px;
+}
+
+hr.style1 {
+  border-top: 1px solid #007bff;
+}

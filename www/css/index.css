@@ -1,0 +1,14 @@
+/* add a border to the meadow logo image */
+#meadow {
+    border: 5px solid #007bff;
+    border-radius: 10%;
+}
+
+.full-bg {
+    min-height: 100vh; /* Ensures it fills the viewport */
+    min-width: 100vw;
+    display: flex; /* Centers content */
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
