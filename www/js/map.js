@@ -8,9 +8,10 @@
 // Turn Debug off for Production
 const DEBUG = true;
 var marker = null;
+var circle = null;
 
 var map = L.map('map',{
-    zoomControl: false, // Disable zoom controls
+    zoomControl: true, 
     attributionControl: false, // Disable the attribution control
 }).fitWorld();
 
@@ -36,9 +37,13 @@ function onLocationFound(e) {
         return;
     }
 
-    if (marker) {
+    var radius = e.accuracy;
+
+    if (marker && circle) {
         map.removeLayer(marker);
+        map.removeLayer(circle);
     } 
+    circle = L.circle(e.latlng, radius).addTo(map);
     marker = L.marker(e.latlng).addTo(map);
     
 }
