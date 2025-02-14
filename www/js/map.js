@@ -9,6 +9,7 @@
 const DEBUG = true;
 var marker = null;
 var circle = null;
+var initialSetView = true;
 
 var map = L.map('map',{
     zoomControl: true, 
@@ -21,7 +22,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // enableHighAccuracy ensures better accuracy, useful for tracking walking routes in urban areas
 map.locate({
-    setView: true, 
+    setView: false, 
     watch: true, 
     maxZoom: 17, 
     enableHighAccuracy: true } 
@@ -56,6 +57,11 @@ function onLocationFound(e) {
     else {
         circle.setLatLng(e.latlng);
         circle.setRadius(radius);
+    }
+
+    if (initialSetView) {
+        map.setView(e.latlng, 17);
+        initialSetView = false;
     }
     
 }
