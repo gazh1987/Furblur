@@ -21,14 +21,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // enableHighAccuracy ensures better accuracy, useful for tracking walking routes in urban areas
 map.locate({
-    setView: false, 
+    setView: true, 
     watch: true, 
     maxZoom: 17, 
     enableHighAccuracy: true } 
 );
 
 function onLocationFound(e) {
-    if (DEBUG == true) {
+    if (DEBUG) {
         console.log("Location found");
     }
 
@@ -37,33 +37,48 @@ function onLocationFound(e) {
         return;
     }
 
-    var radius = e.accuracy;
+    if (!marker) {
+        marker = L.marker(e.latlng).addTo(map);
+    }
+    else {
+        marker.setLatLng(e.latlng);
+    }
 
-    if (marker && circle) {
-        map.removeLayer(marker);
-        map.removeLayer(circle);
-    } 
-    circle = L.circle(e.latlng, radius).addTo(map);
-    marker = L.marker(e.latlng).addTo(map);
+    var radius = e.accuracy;
+    if(!circle) {
+        circle = L.circle(e.latlng, radius, {
+            radius: radius,
+            color: "blue",
+            fillColor: "#add8e6",
+            fillOpacity: 0.3
+        }).addTo(map);
+    }
+    else {
+        circle.setLatLng(e.latlng);
+        circle.setRadius(radius);
+    }
     
 }
 map.on('locationfound', onLocationFound);
 
 function onLocationError(e) {
-    if (DEBUG == true) {
+    if (DEBUG) {
         console.log(e.message);
     }
     
     var spanButton = document.getElementById("walkingButton");
-    spanButton.style.pointerEvents = "none";
-    spanButton.id = "walkingButtonOnLocationErrorMessage";
-    spanButton.textContent = e.message;
+
+    if (spanButton) {
+        spanButton.style.pointerEvents = "none";
+        spanButton.id = "walkingButtonOnLocationErrorMessage";
+        spanButton.textContent = e.message;
+    }
 }
 map.on('locationerror', onLocationError);
 
 // Before page unload or navigating away, stop tracking to prevent unnecessary processing
 window.addEventListener("beforeunload", function() {
-    if (DEBUG == true) {
+    if (DEBUG) {
         console.log("map has stopped locating");
     }
 
