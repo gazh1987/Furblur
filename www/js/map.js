@@ -12,7 +12,7 @@ var circle = null;
 
 var map = L.map('map',{
     zoomControl: true, 
-    attributionControl: false, // Disable the attribution control
+    attributionControl: true,
 }).fitWorld();
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -21,7 +21,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // enableHighAccuracy ensures better accuracy, useful for tracking walking routes in urban areas
 map.locate({
-    setView: true, 
+    setView: false, 
     watch: true, 
     maxZoom: 17, 
     enableHighAccuracy: true } 
