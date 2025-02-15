@@ -68,3 +68,12 @@ footer {
   font-size: 100%;
   font-style: italic;
 }
+
+hr.style1 {
+  border-top: 1px solid #007bff;
+}
+
+#walkStats {
+  border: 5%;
+  font-weight: bold;
+}
