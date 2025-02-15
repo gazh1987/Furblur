@@ -1,4 +1,3 @@
-var DEBUG = true;
 var startDate;
 var durationInterval;
 
@@ -25,8 +24,6 @@ function calculateAndFormatDuration() {
 
 // Before page unload or navigating away, stop the interval
 window.addEventListener("beforeunload", function() {
-    if (DEBUG) {
-        console.log("interval has stopped");
-    }
+    console.log("interval has stopped");
     clearInterval(durationInterval);
 })

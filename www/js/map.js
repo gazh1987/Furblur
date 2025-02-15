@@ -4,9 +4,6 @@
  * AttributionControl. This is disabled for clearer UX however, we might add this in if needed later.
  */
 
-
-// Turn Debug off for Production
-const DEBUG = true;
 var marker = null;
 var circle = null;
 var initialSetView = true;
@@ -29,9 +26,7 @@ map.locate({
 );
 
 function onLocationFound(e) {
-    if (DEBUG) {
-        console.log("Location found");
-    }
+    console.log("Location found");
 
     if (!e.latlng) {
         console.warn("Invalid Location Received: ", e);
@@ -68,9 +63,7 @@ function onLocationFound(e) {
 map.on('locationfound', onLocationFound);
 
 function onLocationError(e) {
-    if (DEBUG) {
-        console.log(e.message);
-    }
+    console.log(e.message);
     
     var spanButton = document.getElementById("walkingButton");
 
@@ -84,9 +77,6 @@ map.on('locationerror', onLocationError);
 
 // Before page unload or navigating away, stop tracking to prevent unnecessary processing
 window.addEventListener("beforeunload", function() {
-    if (DEBUG) {
-        console.log("map has stopped locating");
-    }
-    
+    console.log("map has stopped locating");
     map.stopLocate();
 })
