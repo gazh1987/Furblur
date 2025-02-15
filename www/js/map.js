@@ -87,6 +87,6 @@ window.addEventListener("beforeunload", function() {
     if (DEBUG) {
         console.log("map has stopped locating");
     }
-
+    
     map.stopLocate();
 })

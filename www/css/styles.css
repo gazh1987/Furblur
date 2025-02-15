@@ -58,8 +58,7 @@ footer {
 
 #walkingButton {
   color: red;
-  padding: 1%;
-  font-size: 50px;
+  font-size: 35px;
 }
 
 #walkingButtonOnLocationErrorMessage {
@@ -68,8 +67,4 @@ footer {
   text-wrap: wrap;
   font-size: 100%;
   font-style: italic;
-}
-
-hr.style1 {
-  border-top: 1px solid #007bff;
 }
