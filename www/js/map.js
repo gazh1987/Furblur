@@ -2,6 +2,7 @@ let marker = null;
 let circle = null;
 let polyline = null;
 let walkLatLngs = [];
+let walkingTracking = false;
 
 const map = L.map('map',{
     zoomControl: true, 
@@ -42,20 +43,24 @@ function onLocationFound(e) {
         circle.setRadius(radius);
     }
 
-    walkLatLngs.push(e.latlng);
-    
-    if (!polyline) {
-        polyline = new L.polyline(walkLatLngs, {color: 'red'}).addTo(map);
-    }
-    else {
-        polyline.setLatLngs(walkLatLngs);
-
+    // Do not record the polyline and total distance if not on the walk page
+    if (walkingTracking) {
+        walkLatLngs.push(e.latlng);
         let totalDistance = 0;
-        for (let i = 1; i < walkLatLngs.length; i ++) {
-            totalDistance += walkLatLngs[i].distanceTo(walkLatLngs[i-1]);
+    
+        if (!polyline) {
+            polyline = new L.polyline(walkLatLngs, {color: 'red'}).addTo(map);
         }
+        else {
+            polyline.setLatLngs(walkLatLngs);
+
+            for (let i = 1; i < walkLatLngs.length; i ++) {
+                totalDistance += walkLatLngs[i].distanceTo(walkLatLngs[i-1]);
+            }
+        }
+
         document.getElementById("distance").textContent = totalDistance > 0 ? 
-            (totalDistance / 1000).toFixed(2) + "km" :
+            (totalDistance / 1000).toFixed(2) + " km" :
             "0 km";
     }
 }
@@ -72,7 +77,12 @@ function onLocationError(e) {
 }
 map.on('locationerror', onLocationError);
 
+function startWalkingTracking() {
+    walkingTracking = true;
+}
+
 // Before page unload or navigating away, stop tracking to prevent unnecessary processing
 window.addEventListener("beforeunload", function() {
     map.stopLocate();
+    walkingTracking = false;
 })
