@@ -24,18 +24,19 @@
             <h1 class="sour-gummy-font text-center">Furblur</h1>
         </header>
         <div id="map"></div> 
-        <hr class="style1">
         <div id="walkStats" class="sour-gummy-font text-center">
             <p>Duration: <span id="duration"></span></p>
             <p>Distance: <span id="distance"></span></p>
             <p>Average Pace: <span id="pace"></span></p>
         </div>
-        <hr class="style1">
         <footer>
             <div class="row">
                 <div class="col" id="walking">
                     <!--TODO: Temporaily redirects to the home page. Will be fixed as part of Furblur/issues/4 -->
-                    <span onclick="window.location.href='home.html'" id="walkingButton" class="material-symbols-outlined">stop_circle</span>
+                    <span id="stopWalkingButton" class="material-symbols-outlined">stop_circle</span>
+                </div>
+                <div class="col" id="walkingLock">
+                    <span onclick="toggleStopButtonStyles()" id="walkingLockButton" class="material-symbols-outlined">lock</span>
                 </div>
             </div>
         </footer>
@@ -43,6 +44,7 @@
     
     <!-- Leaflet Script -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="cordova.js"></script>
     <script src="js/map.js"></script>
     <script src="js/walkStatCalcs.js"></script>
 </body>

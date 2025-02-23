@@ -28,16 +28,19 @@ html, body {
   width: 100%; /* Full width */
   border: 2px solid #007bff;
   border-radius: 2%;
+  margin-bottom: 4%;
 }
 
 .page-header {
   background: white;
+  margin-top: 4%;
 }
 
 footer {
   background: white;
   min-height: 50px;
   padding: 12px;
+  margin-bottom: 4%;
 }
 
 .col{
@@ -49,14 +52,19 @@ footer {
   color: #007bff;
 }
 
-#walking {
+#walking, #walkingLock {
   height: 80px; 
   background: white;
   text-align: center;
   padding: 5%;
 }
 
-#walkingButton {
+#stopWalkingButton, #walkingLockButton {
+  color: grey;
+  font-size: 35px;
+}
+
+#goWalkingButton, #walkingLockButton {
   color: red;
   font-size: 35px;
 }
@@ -74,6 +82,8 @@ hr.style1 {
 }
 
 #walkStats {
+  padding: 10;
   border: 5%;
   font-weight: bold;
+  margin-top: 4%;
 }

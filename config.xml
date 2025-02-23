@@ -13,18 +13,12 @@
         <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
             <string>We need your location to display the map</string>
         </edit-config>
-        
         <edit-config target="NSLocationAlwaysUsageDescription" file="*-Info.plist" mode="merge">
             <string>We need your location even when the app is in the background</string>
         </edit-config>
-        
         <edit-config target="NSPrivacyAccessedAPICategoryLocation" file="*-Info.plist" mode="merge">
             <string>NSPrivacyAccessedAPICategoryLocation</string>
         </edit-config>
-
-        <!-- TODO: Configure the app icon -->
-        <!-- <icon src="www/img/meadow.png"/> -->
-
     </platform>
 </widget>
 

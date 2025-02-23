@@ -3,6 +3,18 @@ let circle = null;
 let polyline = null;
 let walkLatLngs = [];
 let walkingTracking = false;
+let walkButtonLocked = true;
+
+function startWalkingTracking() {
+    walkingTracking = true;
+    document.addEventListener('deviceready', keepDeviceAwake, false);
+}
+
+function keepDeviceAwake() {
+    if (window.plugins && window.plugins.insomnia) {
+        window.plugins.insomnia.keepAwake();
+    }
+}
 
 const map = L.map('map',{
     zoomControl: true, 
@@ -67,7 +79,7 @@ function onLocationFound(e) {
 map.on('locationfound', onLocationFound);
 
 function onLocationError(e) {
-    let spanButton = document.getElementById("walkingButton");
+    let spanButton = document.getElementById("walkingLockButton");
 
     if (spanButton) {
         spanButton.style.pointerEvents = "none";
@@ -77,12 +89,31 @@ function onLocationError(e) {
 }
 map.on('locationerror', onLocationError);
 
-function startWalkingTracking() {
-    walkingTracking = true;
+let stopWalkingButton = document.getElementById("stopWalkingButton");
+stopWalkingButton.onclick = function() {
+    if(!walkButtonLocked) {
+        window.location.href='home.html';
+    }
 }
+
+function toggleStopButtonStyles() {
+    if (walkButtonLocked) {
+        walkButtonLocked = false;
+        walkingLockButton.textContent = "lock_open_right"
+        walkingLockButton.style.color = "#007bff";
+        stopWalkingButton.style.color = "red";
+    }
+    else {
+        walkButtonLocked = true;
+        walkingLockButton.textContent = "lock"
+        walkingLockButton.style.color = "red";
+        stopWalkingButton.style.color = "grey";
+    }
+};
 
 // Before page unload or navigating away, stop tracking to prevent unnecessary processing
 window.addEventListener("beforeunload", function() {
     map.stopLocate();
     walkingTracking = false;
+    window.plugins.insomnia.allowSleepAgain()
 })
