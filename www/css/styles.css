@@ -22,7 +22,7 @@ html, body {
   width: 90%;
 }
 
-#content, #map {
+#content, #map, #summaryMap {
   flex-grow: 1; /* This will make the content or map take up all available space above the footer */
   top: 1%;
   width: 100%; /* Full width */

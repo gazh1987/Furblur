@@ -92,7 +92,8 @@ map.on('locationerror', onLocationError);
 let stopWalkingButton = document.getElementById("stopWalkingButton");
 stopWalkingButton.onclick = function() {
     if(!walkButtonLocked) {
-        window.location.href='home.html';
+        showWalkSummary();
+        new bootstrap.Modal(document.getElementById("walkSummaryModal")).show();
     }
 }
 
@@ -117,3 +118,34 @@ window.addEventListener("beforeunload", function() {
     walkingTracking = false;
     window.plugins.insomnia.allowSleepAgain()
 })
+
+let summaryMap;
+
+function showWalkSummary() {
+    document.getElementById("summaryDuration").textContent = document.getElementById("duration").textContent;
+    document.getElementById("summaryDistance").textContent = document.getElementById("distance").textContent;
+    document.getElementById("summaryPace").textContent = document.getElementById("pace").textContent;
+
+    // Delay map initialization until modal is visible
+    // Improve this, 500 timeout is arbitrary
+    setTimeout(() => {
+        if (!summaryMap) {
+            summaryMap = L.map("summaryMap");
+            
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attributionControl: true,
+            }).addTo(summaryMap);
+        }
+
+        // Add the polyline
+        let polyline = L.polyline(walkLatLngs, { color: 'red', weight: 4 }).addTo(summaryMap);
+
+        // Fit the map view to the polyline bounds
+        summaryMap.fitBounds(polyline.getBounds());
+
+    }, 500);
+}
+
+function redirectToHome() {
+    window.location.href = "home.html"; 
+}
