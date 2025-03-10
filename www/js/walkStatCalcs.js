@@ -50,10 +50,3 @@ function getPace() {
        console.log("code: "    + error.code    + "\n" + "message: " + error.message + "\n");
     }
  }
-
- // Before page unload or navigating away, stop the intervals
-window.addEventListener("beforeunload", function() {
-    clearInterval(durationInterval);
-    clearInterval(paceInterval);
-    navigator.geolocation.clearWatch(watchId);
-})

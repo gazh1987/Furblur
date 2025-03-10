@@ -84,6 +84,6 @@ hr.style1 {
 #walkStats {
   padding: 10;
   border: 5%;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-top: 4%;
 }

@@ -112,13 +112,6 @@ function toggleStopButtonStyles() {
     }
 };
 
-// Before page unload or navigating away, stop tracking to prevent unnecessary processing
-window.addEventListener("beforeunload", function() {
-    map.stopLocate();
-    walkingTracking = false;
-    window.plugins.insomnia.allowSleepAgain()
-})
-
 let summaryMap;
 
 function showWalkSummary() {
@@ -145,6 +138,46 @@ function showWalkSummary() {
 
     }, 500);
 }
+
+const energyLevelSlider = document.getElementById('energy-level');
+const happinessSlider = document.getElementById('happiness');
+const behaviorSlider = document.getElementById('behavior');
+const summaryEnergy = document.getElementById('summaryEnergy');
+const summaryHappiness = document.getElementById('summaryHappiness');
+const summaryBehavior = document.getElementById('summaryBehavior');
+
+// Function to update the selected value based on slider
+function updateSliderValue() {
+    const energyValues = ['Low', 'Normal', 'High'];
+    const happinessValues = ['Sad', 'Neutral', 'Happy'];
+    const behaviorValues = ['Calm', 'Excited', 'Anxious', 'Reactive'];
+
+    summaryEnergy.textContent = energyValues[energyLevelSlider.value];
+    summaryHappiness.textContent = happinessValues[happinessSlider.value];
+    summaryBehavior.textContent = behaviorValues[behaviorSlider.value];
+}
+
+// Update the value initially
+updateSliderValue();
+
+// Add event listeners to update the values as the sliders change
+energyLevelSlider.addEventListener('input', updateSliderValue);
+happinessSlider.addEventListener('input', updateSliderValue);
+behaviorSlider.addEventListener('input', updateSliderValue);
+
+ // Before page unload or navigating away, stop the intervals
+window.addEventListener("beforeunload", function() {
+    clearInterval(durationInterval);
+    clearInterval(paceInterval);
+    navigator.geolocation.clearWatch(watchId);
+})
+
+// Before page unload or navigating away, stop tracking to prevent unnecessary processing
+window.addEventListener("beforeunload", function() {
+    map.stopLocate();
+    walkingTracking = false;
+    window.plugins.insomnia.allowSleepAgain()
+})
 
 function redirectToHome() {
     window.location.href = "home.html"; 

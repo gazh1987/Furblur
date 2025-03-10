@@ -31,16 +31,31 @@
                 <p>Average Pace: <span id="pace"></span></p>
             </div>
             <div class="modal fade" id="walkSummaryModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered sour-gummy-font">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title sour-gummy-font">Walk Summary</h5>
                         </div>
                         <div class="modal-body">
                             <div id="summaryMap" style="height: 300px;"></div>
-                            <p>Duration: <span id="summaryDuration"></span></p>
-                            <p>Distance: <span id="summaryDistance"></span></p>
-                            <p>Average Pace: <span id="summaryPace"></span></p>
+                            <p>🕒 Duration: <span id="summaryDuration"></span></p>
+                            <p>📏 Distance: <span id="summaryDistance"></span></p>
+                            <p>🚶‍♀️Average Pace: <span id="summaryPace"></span></p>
+                            <div class="slider-container">
+                                <label for="energy-level">🏃 Energy Level</label>
+                                <input type="range" id="energy-level" class="slider" min="0" max="2" step="1" value="1">
+                                <p><span id="summaryEnergy">Normal</span></p>
+                            </div>
+                            <div class="slider-container">
+                                <label for="happiness">😊 Happiness</label>
+                                <input type="range" id="happiness" class="slider" min="0" max="2" step="1" value="1">
+                                <p><span id="summaryHappiness">Neutral</span></p>
+                            </div>
+                            <div class="slider-container">
+                                <label for="behavior">🐕 Behavior</label>
+                                <input type="range" id="behavior" class="slider" min="0" max="3" step="1" value="0">
+                                <p><span id="summaryBehavior">Calm</span></p>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" onclick="redirectToHome()" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
