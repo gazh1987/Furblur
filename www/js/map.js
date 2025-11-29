@@ -139,6 +139,10 @@ function showWalkSummary() {
     }, 500);
 }
 
+const energyValues = ['Low', 'Normal', 'High'];
+const happinessValues = ['Sad', 'Neutral', 'Happy'];
+const behaviorValues = ['Calm', 'Excited', 'Anxious', 'Reactive'];
+
 const energyLevelSlider = document.getElementById('energy-level');
 const happinessSlider = document.getElementById('happiness');
 const behaviorSlider = document.getElementById('behavior');
@@ -148,10 +152,6 @@ const summaryBehavior = document.getElementById('summaryBehavior');
 
 // Function to update the selected value based on slider
 function updateSliderValue() {
-    const energyValues = ['Low', 'Normal', 'High'];
-    const happinessValues = ['Sad', 'Neutral', 'Happy'];
-    const behaviorValues = ['Calm', 'Excited', 'Anxious', 'Reactive'];
-
     summaryEnergy.textContent = energyValues[energyLevelSlider.value];
     summaryHappiness.textContent = happinessValues[happinessSlider.value];
     summaryBehavior.textContent = behaviorValues[behaviorSlider.value];
@@ -164,6 +164,56 @@ updateSliderValue();
 energyLevelSlider.addEventListener('input', updateSliderValue);
 happinessSlider.addEventListener('input', updateSliderValue);
 behaviorSlider.addEventListener('input', updateSliderValue);
+
+async function postWalk() {
+    const end = new Date();
+
+    const runData = {
+        date: new Date().toISOString().split('T')[0],
+        startTime: formatDateTime(startDate),
+        endTime: formatDateTime(new Date()),
+        distanceKm: parseFloat(document.getElementById("summaryDistance").textContent),
+        averagePace: parseFloat(document.getElementById("summaryPace").textContent),
+        durationFormatted: document.getElementById("summaryDuration").textContent,
+        energyLevel: energyValues[energyLevelSlider.value],
+        happiness: happinessValues[happinessSlider.value],
+        behaviour: behaviorValues[behaviorSlider.value],
+        coordinates: getJsonFormattedCoordinates()
+    }
+
+    try {
+        const res = await fetch (API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(runData)
+        });
+
+        if (!res.ok) {
+            throw new Error(`Server error: $res.status`);
+        }
+
+        const data = await res.json();
+        console.log("Walk posted succesful: ", data);
+        redirectToHome();
+    }
+    catch (err) {
+        console.log("Failed to Post walk: ", err);
+        alert("Failed to log walk. Please try again in a few minutes.");
+    }
+}
+
+function formatDateTime(date){
+    return date.toISOString().slice(0,19); 
+}
+
+function getJsonFormattedCoordinates() {
+    return walkLatLngs.map(c => ({
+        latitude: c.lat,
+        longitude: c.lng
+    }));
+}
 
  // Before page unload or navigating away, stop the intervals
 window.addEventListener("beforeunload", function() {
